@@ -1,0 +1,100 @@
+.navbar {
+  display: flex;
+  background-color: var(--azul-fuerte);
+  color: white;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  height: 3rem;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 10;
+  box-sizing: border-box;
+  }
+
+  .navbar-left {
+    display: flex;
+    align-content: center;
+    height: 100%;
+    width: auto;
+  }
+  
+  .menu-button {
+    font-size: 1.75rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+
+  .menu-button span {
+    font-size: 1.75rem;
+  }
+  
+  .navbar-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-menu {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+  }
+  
+  .username {
+    font-weight: normal;
+    font-size: 1.5rem;
+  }
+  
+  .user-icon {
+    width: 2rem;
+    height: 2rem;
+    background-color: white;
+    color: var(--azul-mira);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 3rem;
+    right: 0;
+    background-color: var(--azul-fuerte);
+    color: #ffff;
+    border: 1px solid var(--azul-mira);
+    border-radius: 5px;
+    min-width: 12rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .dropdown-menu button {
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 10px 15px;
+    cursor: pointer;
+    color: #ffff;
+    font-size: 0.95rem;
+  }
+  
+  .dropdown-menu button:hover {
+    font-weight: bold;
+    background-color: var(--gris-suave);
+    color: var(--azul-fuerte);
+    border-radius: 5px;
+  }
+
+  .dropdown-menu #logout:hover {
+    color: red;
+  }
+  

@@ -1,0 +1,12 @@
+export const ForosData = [
+  "BOSTON",
+  "LA SIERRITA",
+  "COLINA CAMPESTRE",
+  "LAS NIEVES",
+  "RIOMAR",
+  "VILLA ESTADIO",
+  "LOMA",
+  "PUERTO COLOMBIA",
+  "MALAMBO",
+  "SABANAGRANDE",
+];

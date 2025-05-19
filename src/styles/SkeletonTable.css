@@ -1,0 +1,24 @@
+.skeleton-container {
+    height: 100%;
+    width: 100%;
+}
+
+.skeleton-table {
+    height: 100%;
+    width: 100%;
+}
+
+.skeleton-header {
+    width: 100%;
+    height: 2rem;
+    background-color: #007BFF;
+}
+
+.skeleton-body {
+    width: 100%;
+    height: 100%;
+}
+
+.skeleton-body td {
+    line-height: 2.5rem;
+}

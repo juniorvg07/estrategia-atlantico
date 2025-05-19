@@ -1,0 +1,22 @@
+.superadmin-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    height: 90vh;
+    width: 100vw;
+    gap: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.foros-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.verticalChart {
+    flex: 1;
+    overflow-x: auto;
+}

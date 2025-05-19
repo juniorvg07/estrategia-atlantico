@@ -1,0 +1,60 @@
+/* Fondo oscuro */
+.overlay-filter {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+/* Caja modal centrada */
+.modal-container {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 30rem;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.modal-container h2 {
+  text-align: center;
+}
+
+.modal-container .filters {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#group-1, #group-2{
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    height: 3.5rem;
+}
+
+#group-1 div{
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.modal-container section div input{
+    height: 1.75rem;
+    padding: 0 0.5rem;
+}
+
+#group-1 div select{
+    height: 2rem;
+    padding: 0 0.5rem;
+    width: 100%;
+}

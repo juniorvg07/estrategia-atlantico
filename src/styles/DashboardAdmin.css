@@ -1,0 +1,25 @@
+.admin-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+    width: 100vw;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.labels-container {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+    align-items: center;
+    padding: 0 5rem;
+    box-sizing: border-box;
+}
+
+.pieChart {
+    display: flex;
+    flex-direction: row;
+    padding: 0 3rem;
+}
