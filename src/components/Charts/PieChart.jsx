@@ -1,5 +1,5 @@
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
-import { MetasAtl } from "../utils/metas";
+import { MetasAtl } from "../../utils/metas";
 
 const COLORS = ["var(--azul-fuerte)", "#d31919"];
 

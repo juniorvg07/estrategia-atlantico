@@ -1,5 +1,5 @@
-import { MetasAtl } from "../utils/metas";
-import "../styles/Foro.css";
+import { MetasAtl } from "../../utils/metas";
+import "../../styles/Foro.css";
 
 export const Foro = ({ nombre, lideres, referidos }) => {
   const metas = MetasAtl.find((foro) => foro.foro === nombre);

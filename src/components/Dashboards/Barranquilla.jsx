@@ -1,5 +1,5 @@
-import "../styles/Barranquilla.css";
-import { BarranquillaData } from "../utils/barranquillaData";
+import "../../styles/Barranquilla.css";
+import { BarranquillaData } from "../../utils/barranquillaData";
 
 export const Barranquilla = ({ lideres, referidos }) => {
   return (

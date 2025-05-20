@@ -1,6 +1,6 @@
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import "../styles/TableNormal.css";
-import "../styles/SkeletonTable.css";
+import "../../styles/TableNormal.css";
+import "../../styles/SkeletonTable.css";
 import "react-loading-skeleton/dist/skeleton.css";
 
 export const loader = () => {

@@ -3,14 +3,14 @@ import { Spinner } from "../components/Spinner";
 import { SidebarContext } from "../utils/sidebarContext";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
-import { Municipio } from "../components/Municipio";
+import { Municipio } from "../components/Dashboards/Municipio";
 import { lideresxForo } from "../utils/lideresForo";
 import { referidosxForo } from "../utils/referidosForo";
 import { ForosData } from "../utils/forosData";
+import { Barranquilla } from "../components/Dashboards/Barranquilla";
+import { Soledad } from "../components/Dashboards/Soledad";
+import { VerticalBarChart } from "../components/Charts/VerticalBarChart";
 import "../styles/DashboardSuper.css";
-import { Barranquilla } from "../components/Barranquilla";
-import { Soledad } from "../components/Soledad";
-import { VerticalBarChart } from "../components/VerticalBarChart";
 
 export const DashboardSuper = () => {
   const [sidebar, setSidebar] = useState(false);

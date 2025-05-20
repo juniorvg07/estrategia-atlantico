@@ -2,8 +2,7 @@ import { useState } from "react";
 import { SidebarContext } from "../utils/sidebarContext";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
-import { LideresTable } from "../components/LideresTable";
-import { Table } from "../components/Table";
+import { Table } from "../components/Tables/Table";
 
 export const Lideres = () => {
   const [sidebar, setSidebar] = useState(false);

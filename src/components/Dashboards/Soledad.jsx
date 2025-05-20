@@ -1,5 +1,5 @@
-import "../styles/Soledad.css";
-import { SoledadData } from "../utils/soledadData";
+import "../../styles/Soledad.css";
+import { SoledadData } from "../../utils/soledadData";
 
 export const Soledad = ({ lideres, referidos }) => {
   return (

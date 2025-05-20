@@ -1,15 +1,8 @@
 import { useState, useEffect } from "react";
-import { ForosData } from "../utils/forosData";
-import "../styles/Filters.css";
+import { ForosData } from "../../utils/forosData";
+import "../../styles/Filters.css";
 
-export const Filters = ({
-  auth,
-  dataRef,
-  setRecords,
-  data1,
-  data2,
-  onClose,
-}) => {
+export const Filters = ({ auth, data, setRecords, data1, data2, onClose }) => {
   const [municipios, setMunicipios] = useState([]);
   const [barrios, setBarrios] = useState([]);
   const [puesto, setPuesto] = useState([]);
@@ -17,6 +10,7 @@ export const Filters = ({
   const [selectedForo, setSelectedForo] = useState("");
   const [selectedBarrio, setSelectedBarrio] = useState("");
   const [selectedPuesto, setSelectedPuesto] = useState("");
+  const [dataOrigin, setDataOrigin] = useState(data);
 
   useEffect(() => {
     const muniCsv = [...new Set(data1.map((row) => row.Municipio))];
@@ -55,7 +49,7 @@ export const Filters = ({
   };
 
   useEffect(() => {
-    const filtered = dataRef.filter((record) => {
+    const filtered = data.filter((record) => {
       const matchMunicipio =
         selectedMuni === "" || record.municipio === selectedMuni;
       const matchBarrio =
@@ -66,7 +60,7 @@ export const Filters = ({
       return matchForo && matchMunicipio && matchBarrio && matchPuesto;
     });
     setRecords(filtered);
-  }, [selectedMuni, selectedBarrio, selectedForo, selectedPuesto, dataRef]);
+  }, [selectedMuni, selectedBarrio, selectedForo, selectedPuesto, data]);
 
   return (
     <div className="overlay-filter">

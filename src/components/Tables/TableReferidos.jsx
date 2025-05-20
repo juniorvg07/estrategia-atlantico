@@ -1,21 +1,21 @@
 import { useState, useEffect, useContext } from "react";
 import DataTable from "react-data-table-component";
 import { loader } from "./skeletonTable";
-import { axiosInstance } from "../services/axiosInstance";
-import { AuthContext } from "../auth/AuthContext";
-import { getLideresById } from "../utils/getLider";
-import { setCsvData } from "../utils/setCsvData";
+import { axiosInstance } from "../../services/axiosInstance";
+import { AuthContext } from "../../auth/AuthContext";
+import { getLideresById } from "../../utils/getLider";
+import { setCsvData } from "../../utils/setCsvData";
 import { Filters } from "./Filters";
 import { ExportButton } from "./ExportButton";
-import "../styles/Tables.css";
+import "../../styles/Tables.css";
 
 export const TableReferidos = () => {
   const [loading, setLoading] = useState(true);
   const [rendertable, setRenderTable] = useState(false);
   const [filter, setFilter] = useState(false);
 
-  const dataCsv = setCsvData("/ubicaciones.csv");
-  const dataCsv2 = setCsvData("/votaciones.csv");
+  const dataCsv = setCsvData("ubicaciones.csv");
+  const dataCsv2 = setCsvData("votaciones.csv");
 
   const [selectedMuni, setSelectedMuni] = useState("");
   const [selectedForo, setSelectedForo] = useState("");
@@ -67,10 +67,21 @@ export const TableReferidos = () => {
     const data = referidos.map((referido, index) => {
       const idLider = lideres[index].documento;
       const nombreLider = lideres[index].nombre;
+
+      const dato1 = referido.municipio;
+      const dato2 = referido.municipio_votacion;
+      var zonificacion = "";
+      if (dato1 != dato2) {
+        zonificacion = "REQUIERE";
+      } else {
+        zonificacion = "OK";
+      }
+
       return {
         ...referido,
         id_lider: idLider,
         nombre_lider: nombreLider,
+        zonificacion: zonificacion,
       };
     });
     setRecords(data);
@@ -130,6 +141,12 @@ export const TableReferidos = () => {
       center: true,
     },
     {
+      name: "Zonificación",
+      selector: (row) => row.zonificacion,
+      sortable: true,
+      center: true,
+    },
+    {
       name: "Creado",
       selector: (row) => row.created_by,
       sortable: true,
@@ -166,6 +183,10 @@ export const TableReferidos = () => {
     setRecords(dataRef);
   };
 
+  const handleDoubleClick = (e) => {
+    console.log(e);
+  };
+
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
@@ -190,7 +211,7 @@ export const TableReferidos = () => {
             <Filters
               onClose={() => setFilter(false)}
               auth={auth}
-              dataRef={dataRef}
+              data={dataRef}
               setRecords={setRecords}
               data1={dataCsv}
               data2={dataCsv2}
@@ -229,6 +250,7 @@ export const TableReferidos = () => {
               fixedHeader
               highlightOnHover
               pointerOnHover
+              onRowDoubleClicked={handleDoubleClick}
             />
           )}
         </div>

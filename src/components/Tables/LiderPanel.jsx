@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { axiosInstance } from "../services/axiosInstance";
-import { ForosData } from "../utils/forosData";
-import "../styles/LiderPanel.css";
+import { axiosInstance } from "../../services/axiosInstance";
+import { ForosData } from "../../utils/forosData";
+import "../../styles/LiderPanel.css";
 
 export const LiderPanel = ({ lider, data1, data2, onClose }) => {
   const [idLider, setIdLider] = useState(lider.id);

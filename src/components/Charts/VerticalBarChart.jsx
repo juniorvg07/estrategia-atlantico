@@ -8,7 +8,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { MetasAtl } from "../utils/metas";
+import { MetasAtl } from "../../utils/metas";
 
 export const VerticalBarChart = ({ lideres, referidos }) => {
   const data = MetasAtl.map((foro, index) => {

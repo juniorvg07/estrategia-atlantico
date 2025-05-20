@@ -1,4 +1,4 @@
-import "../styles/Municipio.css";
+import "../../styles/Municipio.css";
 
 export const Municipio = ({ nombre, lideres, referidos }) => {
   return (

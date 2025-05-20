@@ -5,9 +5,9 @@ import { axiosInstance } from "../services/axiosInstance";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import { AuthContext } from "../auth/AuthContext";
-import { Foro } from "../components/Foro";
+import { Foro } from "../components/Dashboards/Foro";
 import "../styles/DashboardAdmin.css";
-import { PieChartAdmin } from "../components/PieChart";
+import { PieChartAdmin } from "../components/Charts/PieChart";
 
 export const DashboardAdmin = () => {
   const [sidebar, setSidebar] = useState(false);

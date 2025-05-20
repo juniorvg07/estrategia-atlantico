@@ -9,7 +9,7 @@ import { DashboardSuper } from "./views/DashboardSuper";
 import { DashboardAdmin } from "./views/DashboardAdmin";
 import { Lideres } from "./views/Lideres";
 import { Referidos } from "./views/Referidos";
-import { Divipole } from "./views/Divipole";
+import { Usuarios } from "./views/Usuarios";
 
 function App() {
   const { auth, loading } = useContext(AuthContext);
@@ -74,7 +74,7 @@ function App() {
         </Route>
 
         <Route element={<ProtectedRoute allowedRoles={["SUPERADMIN"]} />}>
-          <Route path="/divipole" element={<Divipole />} />
+          <Route path="/usuarios" element={<Usuarios />} />
         </Route>
       </Routes>
     </Suspense>

@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
-import "../styles/Sidebar.css";
+import { useContext } from "react";
 import { Link } from "react-router";
 import { AuthContext } from "../auth/AuthContext";
+import "../styles/Sidebar.css";
 
 export default function Sidebar({ isOpen, onClose }) {
   const { auth } = useContext(AuthContext);
@@ -26,13 +26,9 @@ export default function Sidebar({ isOpen, onClose }) {
               <span className="material-symbols-outlined">groups</span>
               Referidos
             </Link>
-            <Link to={"/divipole"}>
+            <Link to={"/usuarios"}>
               <span className="material-symbols-outlined">account_circle</span>
               Usuarios
-            </Link>
-            <Link to={"/divipole"}>
-              <span className="material-symbols-outlined">view_list</span>
-              Divipole
             </Link>
           </>
         )}

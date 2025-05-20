@@ -1,12 +1,12 @@
-import { axiosInstance } from "../services/axiosInstance";
-import { AuthContext } from "../auth/AuthContext";
+import { axiosInstance } from "../../services/axiosInstance";
+import { AuthContext } from "../../auth/AuthContext";
 import { useState, useEffect, useContext } from "react";
 import DataTable from "react-data-table-component";
-import { setCsvData } from "../utils/setCsvData";
+import { setCsvData } from "../../utils/setCsvData";
 import { Filters } from "./Filters";
 import { ExportButton } from "./ExportButton";
-import { LiderPanel } from "../components/LiderPanel";
-import "../styles/Tables.css";
+import { LiderPanel } from "./LiderPanel";
+import "../../styles/Tables.css";
 
 export const Table = () => {
   const [lideres, setLideres] = useState([]);
@@ -16,8 +16,8 @@ export const Table = () => {
 
   const [filter, setFilter] = useState(false);
 
-  const dataCsv = setCsvData("/ubicaciones.csv");
-  const dataCsv2 = setCsvData("/votaciones.csv");
+  const dataCsv = setCsvData("ubicaciones.csv");
+  const dataCsv2 = setCsvData("votaciones.csv");
 
   const [selectedMuni, setSelectedMuni] = useState("");
   const [selectedForo, setSelectedForo] = useState("");
@@ -91,6 +91,12 @@ export const Table = () => {
       sortable: true,
       center: true,
     },
+    {
+      name: "Creado por",
+      selector: (row) => row.created_by,
+      sortable: true,
+      center: true,
+    },
   ];
 
   const handleFilterChange = (e) => {
@@ -114,7 +120,7 @@ export const Table = () => {
   };
 
   const handleCleansFilters = () => {
-    setRecords(dataRef);
+    setRecords(lideres);
   };
 
   const handleDoubleClick = (e) => {
@@ -142,7 +148,7 @@ export const Table = () => {
           <Filters
             onClose={() => setFilter(false)}
             auth={auth}
-            dataRef={records}
+            data={records}
             setRecords={setRecords}
             data1={dataCsv}
             data2={dataCsv2}
