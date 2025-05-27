@@ -20,3 +20,16 @@
     flex: 1;
     overflow-x: auto;
 }
+
+@media screen and (max-width: 768px) {
+
+    .superadmin-container {
+        flex-direction: column;
+        height: 95vh;
+        overflow-x: scroll;
+    }
+
+    .verticalChart {
+        display: none;
+    }
+}

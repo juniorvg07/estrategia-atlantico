@@ -2,7 +2,14 @@ import { useState, useEffect } from "react";
 import { ForosData } from "../../utils/forosData";
 import "../../styles/Filters.css";
 
-export const Filters = ({ auth, data, setRecords, data1, data2, onClose }) => {
+export const FiltersLider = ({
+  auth,
+  data,
+  setRecords,
+  data1,
+  data2,
+  onClose,
+}) => {
   const [municipios, setMunicipios] = useState([]);
   const [barrios, setBarrios] = useState([]);
   const [puesto, setPuesto] = useState([]);
@@ -10,7 +17,6 @@ export const Filters = ({ auth, data, setRecords, data1, data2, onClose }) => {
   const [selectedForo, setSelectedForo] = useState("");
   const [selectedBarrio, setSelectedBarrio] = useState("");
   const [selectedPuesto, setSelectedPuesto] = useState("");
-  const [dataOrigin, setDataOrigin] = useState(data);
 
   useEffect(() => {
     const muniCsv = [...new Set(data1.map((row) => row.Municipio))];

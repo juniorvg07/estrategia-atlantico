@@ -39,8 +39,6 @@ export default function Header({ title }) {
         </div>
         {userMenuOpen && (
           <div className="dropdown-menu">
-            <button>Información</button>
-            <button>Cambiar contraseña</button>
             <button id="logout" onClick={handleSubmit}>
               Cerrar sesión
             </button>

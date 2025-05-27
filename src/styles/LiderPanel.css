@@ -83,7 +83,7 @@ form section select {
   width: 90%;
   height: 2rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
   padding: 0.5rem 1rem;
 }
 
@@ -99,23 +99,6 @@ form section select {
 
 #update:hover {
   background-color: var(--azul-mira);
-  color: white;
-  border: 1px solid;
-}
-
-#delete {
-  height: 2rem;
-  background-color: white;
-  color: red;
-  border: 2px solid;
-  border-color: red;
-  border-radius: 5px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-#delete:hover {
-  background-color: red;
   color: white;
   border: 1px solid;
 }

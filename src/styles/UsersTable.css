@@ -1,0 +1,81 @@
+.users-main {
+    background-color: var(--gris-suave);
+    height: 100vh;
+    justify-items: center;
+}
+
+.users-top {
+    height: 5rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.users-top button {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    height: 4rem;
+    width: 7rem;
+    cursor: pointer;
+    border: 2px solid var(--azul-mira);
+    border-radius: 15px;
+    background-color: white;
+    color: var(--azul-mira);
+    font-weight: bold;
+}
+
+.users-top button:hover {
+    background-color: var(--azul-mira);
+    color: white;
+    font-weight: bold;
+}
+
+.usersTable-container {
+    width: 70%;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 1rem;
+}
+
+.usersTable-container .rdt_TableCol {
+    background-color: var(--gris-fuerte);
+    color: black;
+    font-size: large;
+}
+
+.rdt_TableCell { 
+    font-size: medium;
+}
+
+.rdt_TableCell button{
+    cursor: pointer;
+}
+
+.rdt_TableCell .edit-button{
+    border: none;
+    background-color: transparent;
+    color: green;
+    text-shadow: 0.25rem 0.25rem 0.25rem rgb(21, 21, 21, 0.5);
+}
+
+.rdt_TableCell .edit-button:hover{
+    border: 2px solid green;
+    border-radius: 8px;
+    text-shadow: 0.25rem 0.25rem 0.25rem rgb(21, 21, 21, 0.5);
+}
+
+.rdt_TableCell .delete-button{
+    border: none;
+    background-color: transparent;
+    color: red;
+    text-shadow: 0.25rem 0.25rem 0.25rem rgb(21, 21, 21, 0.5);
+}
+
+.rdt_TableCell .delete-button:hover{
+    border: 2px solid red;
+    border-radius: 8px;
+    text-shadow: 0.25rem 0.25rem 0.25rem rgb(21, 21, 21, 0.5);
+}

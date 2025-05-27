@@ -2,15 +2,18 @@ import { axiosInstance } from "../../services/axiosInstance";
 import { AuthContext } from "../../auth/AuthContext";
 import { useState, useEffect, useContext } from "react";
 import DataTable from "react-data-table-component";
+import { loader } from "./skeletonTable";
 import { setCsvData } from "../../utils/setCsvData";
-import { Filters } from "./Filters";
+import { FiltersLider } from "./FiltersLider";
 import { ExportButton } from "./ExportButton";
 import { LiderPanel } from "./LiderPanel";
 import "../../styles/Tables.css";
 
 export const Table = () => {
   const [lideres, setLideres] = useState([]);
-  const [records, setRecords] = useState(lideres);
+  const [dataRef, setDataRef] = useState([]);
+  const [records, setRecords] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [selectedUser, setSelectedUser] = useState(null);
   const { auth } = useContext(AuthContext);
 
@@ -19,18 +22,12 @@ export const Table = () => {
   const dataCsv = setCsvData("ubicaciones.csv");
   const dataCsv2 = setCsvData("votaciones.csv");
 
-  const [selectedMuni, setSelectedMuni] = useState("");
-  const [selectedForo, setSelectedForo] = useState("");
-  const [selectedBarrio, setSelectedBarrio] = useState("");
-  const [selectedPuesto, setSelectedPuesto] = useState("");
-
   useEffect(() => {
     if (auth.role === "SUPERADMIN") {
       axiosInstance
         .get("/personal/getLideres")
         .then((res) => {
           setLideres(res.data);
-          setRecords(res.data);
         })
         .catch((err) => {
           console.error("Error al obtener los Líderes:", err);
@@ -40,7 +37,6 @@ export const Table = () => {
         .get(`/personal/getLideresForo=${auth.foro}`)
         .then((res) => {
           setLideres(res.data);
-          setRecords(res.data);
         })
         .catch((err) => {
           console.error("Error al obtener los Líderes:", err);
@@ -48,12 +44,32 @@ export const Table = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const data = lideres.map((lider, index) => {
+      const dato1 = lider.municipio;
+      const dato2 = lider.municipio_votacion;
+      var zonificacion = "";
+      if (dato1 != dato2) {
+        zonificacion = "REQUIERE";
+      } else {
+        zonificacion = "OK";
+      }
+
+      return {
+        ...lider,
+        zonificacion: zonificacion,
+      };
+    });
+    setRecords(data);
+    setDataRef(data);
+  }, [lideres]);
+
   const columns = [
     {
       name: "ID",
       selector: (row) => row.documento,
       sortable: true,
-      center: true,
+      center: "true",
     },
     {
       name: "Nombres",
@@ -89,19 +105,25 @@ export const Table = () => {
       name: "Mesa de votación",
       selector: (row) => row.mesa_votacion,
       sortable: true,
+      center: "true",
+    },
+    {
+      name: "Zonificación",
+      selector: (row) => row.zonificacion,
+      sortable: true,
       center: true,
     },
     {
       name: "Creado por",
       selector: (row) => row.created_by,
       sortable: true,
-      center: true,
+      center: "true",
     },
   ];
 
   const handleFilterChange = (e) => {
     const searchValue = e.target.value.toLowerCase();
-    const filterRecords = lideres.filter((record) => {
+    const filterRecords = dataRef.filter((record) => {
       const nombre = record.nombre?.toLowerCase() || "";
       const apellido = record.apellido?.toLowerCase() || "";
       const documento =
@@ -120,7 +142,7 @@ export const Table = () => {
   };
 
   const handleCleansFilters = () => {
-    setRecords(lideres);
+    setRecords(dataRef);
   };
 
   const handleDoubleClick = (e) => {
@@ -133,71 +155,84 @@ export const Table = () => {
     noRowsPerPage: true,
   };
 
-  return (
-    <>
-      <div className="fila">
-        <div className="filter-input">
-          <label>Buscar: </label>
-          <input
-            placeholder="Documento, Nombre o Apellido"
-            onChange={handleFilterChange}
-          />
-        </div>
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  }, []);
 
-        {filter && (
-          <Filters
-            onClose={() => setFilter(false)}
-            auth={auth}
-            data={records}
-            setRecords={setRecords}
-            data1={dataCsv}
-            data2={dataCsv2}
-          />
-        )}
-
-        <div className="right-buttons">
-          <div className="filters-buttons">
-            <button id="filtrar" onClick={() => setFilter(true)}>
-              <span className="material-symbols-outlined">filter_alt</span>
-              Filtrar
-            </button>
-            <button id="borrar-filtro" onClick={handleCleansFilters}>
-              <span className="material-symbols-outlined">filter_alt_off</span>
-            </button>
+  if (loading) {
+    return loader();
+  } else {
+    return (
+      <>
+        <div className="fila">
+          <div className="filter-input">
+            <label>Buscar: </label>
+            <input
+              placeholder="Documento, Nombre o Apellido"
+              onChange={handleFilterChange}
+            />
           </div>
-          <ExportButton
-            id="descargar"
-            data={records}
+
+          {filter && (
+            <FiltersLider
+              onClose={() => setFilter(false)}
+              auth={auth}
+              data={dataRef}
+              setRecords={setRecords}
+              data1={dataCsv}
+              data2={dataCsv2}
+            />
+          )}
+
+          <div className="right-buttons">
+            <div className="filters-buttons">
+              <button id="filtrar" onClick={() => setFilter(true)}>
+                <span className="material-symbols-outlined">filter_alt</span>
+                Filtrar
+              </button>
+              <button id="borrar-filtro" onClick={handleCleansFilters}>
+                <span className="material-symbols-outlined">
+                  filter_alt_off
+                </span>
+                Borrar Filtros
+              </button>
+            </div>
+            <ExportButton
+              id="descargar"
+              data={records}
+              columns={columns}
+              rol="Líderes"
+            />
+          </div>
+        </div>
+
+        <div className="dataTable-container">
+          <DataTable
             columns={columns}
-            rol="Líderes"
+            data={records}
+            pagination
+            paginationPerPage={8}
+            paginationComponentOptions={paginationComponentOptions}
+            fixedHeader
+            highlightOnHover
+            pointerOnHover
+            onRowDoubleClicked={handleDoubleClick}
           />
         </div>
-      </div>
 
-      <div className="dataTable-container">
-        <DataTable
-          columns={columns}
-          data={records}
-          pagination
-          paginationPerPage={8}
-          paginationComponentOptions={paginationComponentOptions}
-          fixedHeader
-          highlightOnHover
-          pointerOnHover
-          onRowDoubleClicked={handleDoubleClick}
-        />
-      </div>
-
-      {selectedUser && (
-        <>
-          <LiderPanel
-            lider={selectedUser}
-            data1={dataCsv}
-            data2={dataCsv2}
-            onClose={() => setSelectedUser(null)}
-          />
-        </>
-      )}
-    </>
-  );
+        {selectedUser && (
+          <>
+            <LiderPanel
+              lider={selectedUser}
+              data1={dataCsv}
+              data2={dataCsv2}
+              onClose={() => setSelectedUser(null)}
+            />
+          </>
+        )}
+      </>
+    );
+  }
 };

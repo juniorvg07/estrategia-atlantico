@@ -9,6 +9,17 @@ export const loader = () => {
       color="var(--gris-fuerte)"
       highlightColor="var(--azul-suave)"
     >
+      <section className="skeleton-fila">
+        <article>
+          <Skeleton />
+        </article>
+        <article>
+          <Skeleton />
+        </article>
+        <article>
+          <Skeleton />
+        </article>
+      </section>
       <div className="skeleton-container">
         <table className="skeleton-table">
           <thead className="skeleton-header">

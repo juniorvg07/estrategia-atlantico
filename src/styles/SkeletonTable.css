@@ -1,22 +1,34 @@
+.skeleton-fila {
+    width: 100%;
+    height: 3rem;
+    justify-content: space-between;
+    display: flex;
+}
+
+.skeleton-fila article {
+    width: 25%;
+    height: 100%;
+    align-content: center;
+}
+
 .skeleton-container {
     height: 100%;
     width: 100%;
 }
 
 .skeleton-table {
-    height: 100%;
     width: 100%;
 }
 
 .skeleton-header {
     width: 100%;
-    height: 2rem;
+    height: 3rem;
     background-color: #007BFF;
 }
 
 .skeleton-body {
     width: 100%;
-    height: 100%;
+    height: 24rem;
 }
 
 .skeleton-body td {

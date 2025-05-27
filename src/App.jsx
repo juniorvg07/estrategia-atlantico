@@ -10,6 +10,8 @@ import { DashboardAdmin } from "./views/DashboardAdmin";
 import { Lideres } from "./views/Lideres";
 import { Referidos } from "./views/Referidos";
 import { Usuarios } from "./views/Usuarios";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const { auth, loading } = useContext(AuthContext);
@@ -77,6 +79,8 @@ function App() {
           <Route path="/usuarios" element={<Usuarios />} />
         </Route>
       </Routes>
+
+      <ToastContainer position="top-right" autoClose={3000} />
     </Suspense>
   );
 }

@@ -3,7 +3,14 @@ import { axiosInstance } from "../../services/axiosInstance";
 import { ForosData } from "../../utils/forosData";
 import "../../styles/LiderPanel.css";
 
-export const LiderPanel = ({ lider, data1, data2, onClose }) => {
+export const ReferidoPanel = ({
+  rol,
+  lider,
+  listaLideres,
+  data1,
+  data2,
+  onClose,
+}) => {
   const [idLider, setIdLider] = useState(lider.id);
   const [foroLider, setForoLider] = useState(lider.foro);
   const [documentoLider, setDocumentoLider] = useState(lider.documento);
@@ -31,7 +38,7 @@ export const LiderPanel = ({ lider, data1, data2, onClose }) => {
   const [muniVotacion, setMuniVotacion] = useState([]);
   const [puesto, setPuesto] = useState([]);
 
-  const [mensaje, setMensaje] = useState("");
+  console.log(listaLideres);
 
   const handleDptoChange = (e) => {
     setDptoLider(e.target.value);
@@ -165,25 +172,27 @@ export const LiderPanel = ({ lider, data1, data2, onClose }) => {
     <div className="modal-overlay">
       <div className="modal-content">
         <button className="close-button" onClick={onClose}>
-          X
+          ×
         </button>
         <h2>Información del Líder</h2>
         <form onSubmit={handleSubmit}>
-          <section className="datos">
-            <label>Foro:</label>
-            <input
-              list="lista1"
-              value={foroLider}
-              onChange={(e) => setForoLider(e.target.value)}
-            />
-            <datalist id="lista1">
-              {ForosData.map((item, index) => (
-                <option key={index} value={item}>
-                  {item}
-                </option>
-              ))}
-            </datalist>
-          </section>
+          {rol && rol === "SUPERADMIN" && (
+            <section className="datos">
+              <label>Foro:</label>
+              <input
+                list="lista1"
+                value={foroLider}
+                onChange={(e) => setForoLider(e.target.value)}
+              />
+              <datalist id="lista1">
+                {ForosData.map((item, index) => (
+                  <option key={index} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </datalist>
+            </section>
+          )}
           <section className="datos">
             <label>Documento:</label>
             <input
@@ -345,12 +354,6 @@ export const LiderPanel = ({ lider, data1, data2, onClose }) => {
             </button>
           </section>
         </form>
-
-        {mensaje && (
-          <div style={{ marginTop: 10, color: "darkred" }}>
-            <strong>{mensaje}</strong>
-          </div>
-        )}
       </div>
     </div>
   );

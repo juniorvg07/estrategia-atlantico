@@ -71,7 +71,7 @@
     color: #ffff;
     border: 1px solid var(--azul-mira);
     border-radius: 5px;
-    min-width: 12rem;
+    width: 12rem;
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     display: flex;
     flex-direction: column;
@@ -97,4 +97,15 @@
   .dropdown-menu #logout:hover {
     color: red;
   }
+
+@media screen and (max-width: 480px) {
+
+  .username {
+    display: none;
+  }
+
+  .dropdown-menu {
+    max-width: 10rem;
+  }
+}
   

@@ -14,6 +14,22 @@ export const Login = () => {
     password: "",
   });
   const [errorLabel, setErrorLabel] = useState("");
+  const [showPass, setShowPass] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    let safeValue = value.replace(/[<>"']/g, "").replace(/\s{1,}/g, "");
+
+    if (["username"].includes(name)) {
+      safeValue = safeValue
+        .toLowerCase()
+        .replace(/[^a-z ^0-9]/gi, "")
+        .replace(/\s{1,}/g, "");
+    }
+
+    setCredentials({ ...credentials, [name]: safeValue });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -56,23 +72,29 @@ export const Login = () => {
               <input
                 type="text"
                 placeholder="Usuario"
+                name="username"
                 value={credentials.username}
-                onChange={(e) =>
-                  setCredentials({ ...credentials, username: e.target.value })
-                }
+                onChange={handleChange}
               />
             </section>
 
             <section className="credentials">
               <label>CONTRASEÑA: </label>
-              <input
-                type="password"
-                placeholder="Contraseña"
-                value={credentials.password}
-                onChange={(e) =>
-                  setCredentials({ ...credentials, password: e.target.value })
-                }
-              />
+              <div>
+                <input
+                  type={showPass ? "text" : "password"}
+                  placeholder="Contraseña"
+                  name="password"
+                  value={credentials.password}
+                  onChange={handleChange}
+                />
+                <span
+                  className="material-symbols-outlined"
+                  onClick={() => setShowPass(!showPass)}
+                >
+                  {showPass ? "visibility" : "visibility_off"}
+                </span>
+              </div>
             </section>
 
             <button type="submit">Iniciar Sesión</button>

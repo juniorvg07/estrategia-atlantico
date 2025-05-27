@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { axiosInstance } from "../services/axiosInstance";
+import { useNavigate } from "react-router";
 
 export const AuthContext = createContext();
 
@@ -11,6 +12,7 @@ export const AuthProvider = ({ children }) => {
     role: null,
     foro: null,
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const checkSession = async () => {
@@ -81,6 +83,7 @@ export const AuthProvider = ({ children }) => {
       role: null,
       foro: null,
     });
+    navigate("/login");
   };
 
   return (

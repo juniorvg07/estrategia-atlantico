@@ -23,3 +23,19 @@
     flex-direction: row;
     padding: 0 3rem;
 }
+
+@media screen and (max-width: 768px) {
+    .labels-container {
+        padding: 0;
+    }
+
+    .labels-container article {
+        height: 9rem;
+        align-content: center;
+    }
+
+    .pieChart {
+        flex-direction: column;
+        overflow-y: scroll;
+    }
+}

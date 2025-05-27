@@ -5,7 +5,8 @@ import { axiosInstance } from "../../services/axiosInstance";
 import { AuthContext } from "../../auth/AuthContext";
 import { getLideresById } from "../../utils/getLider";
 import { setCsvData } from "../../utils/setCsvData";
-import { Filters } from "./Filters";
+import { FiltersReferidos } from "./FiltersReferidos";
+import { ReferidoPanel } from "./ReferidoPanel";
 import { ExportButton } from "./ExportButton";
 import "../../styles/Tables.css";
 
@@ -17,6 +18,8 @@ export const TableReferidos = () => {
   const dataCsv = setCsvData("ubicaciones.csv");
   const dataCsv2 = setCsvData("votaciones.csv");
 
+  const [selectedUser, setSelectedUser] = useState(null);
+
   const [selectedMuni, setSelectedMuni] = useState("");
   const [selectedForo, setSelectedForo] = useState("");
   const [selectedBarrio, setSelectedBarrio] = useState("");
@@ -24,6 +27,7 @@ export const TableReferidos = () => {
 
   const [referidos, setReferidos] = useState([]);
   const [lideres, setLideres] = useState([]);
+  const [listaLideres, setListaLideres] = useState([]);
   const { auth } = useContext(AuthContext);
 
   const [dataRef, setDataRef] = useState([]);
@@ -62,6 +66,14 @@ export const TableReferidos = () => {
     }
     setearLideres();
   }, [referidos]);
+
+  useEffect(() => {
+    const lista = lideres.map((lider) => {
+      foro: lider.foro;
+      nombre: lider.nombre;
+    });
+    setListaLideres(lista);
+  }, [lideres]);
 
   useEffect(() => {
     const data = referidos.map((referido, index) => {
@@ -184,7 +196,7 @@ export const TableReferidos = () => {
   };
 
   const handleDoubleClick = (e) => {
-    console.log(e);
+    setSelectedUser(e);
   };
 
   useEffect(() => {
@@ -208,7 +220,7 @@ export const TableReferidos = () => {
           </div>
 
           {filter && (
-            <Filters
+            <FiltersReferidos
               onClose={() => setFilter(false)}
               auth={auth}
               data={dataRef}
@@ -228,6 +240,7 @@ export const TableReferidos = () => {
                 <span className="material-symbols-outlined">
                   filter_alt_off
                 </span>
+                Borrar Filtros
               </button>
             </div>
             <ExportButton
@@ -254,6 +267,19 @@ export const TableReferidos = () => {
             />
           )}
         </div>
+
+        {selectedUser && (
+          <>
+            <ReferidoPanel
+              lider={selectedUser}
+              listaLideres={listaLideres}
+              rol={auth.role}
+              data1={dataCsv}
+              data2={dataCsv2}
+              onClose={() => setSelectedUser(null)}
+            />
+          </>
+        )}
       </>
     );
   }

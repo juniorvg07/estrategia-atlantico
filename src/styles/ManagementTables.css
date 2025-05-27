@@ -1,0 +1,8 @@
+.tables-container {
+    width: 100%;
+    display: flex;
+}
+
+.section{
+    width: 50%;
+}
