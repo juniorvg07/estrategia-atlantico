@@ -40,6 +40,7 @@ export default function Header({ title }) {
         {userMenuOpen && (
           <div className="dropdown-menu">
             <button id="logout" onClick={handleSubmit}>
+              <span className="material-symbols-outlined">mode_off_on</span>
               Cerrar sesión
             </button>
           </div>

@@ -12,42 +12,27 @@ export default function Sidebar({ isOpen, onClose }) {
         <span className="material-symbols-outlined">close</span>
       </button>
       <nav className="sidebar-menu">
+        <Link to={"/dashboard"}>
+          <span className="material-symbols-outlined">home</span>
+          Inicio
+        </Link>
+        <Link to={"/arbol"}>
+          <span className="material-symbols-outlined">account_tree</span>
+          Árbol
+        </Link>
+        <Link to={"/lideres"}>
+          <span className="material-symbols-outlined">group</span>
+          Líderes
+        </Link>
+        <Link to={"/referidos"}>
+          <span className="material-symbols-outlined">groups</span>
+          Referidos
+        </Link>
         {auth && auth.role === "SUPERADMIN" && (
-          <>
-            <Link to={"/dashboardSuper"}>
-              <span className="material-symbols-outlined">home</span>
-              Inicio
-            </Link>
-            <Link to={"/lideres"}>
-              <span className="material-symbols-outlined">group</span>
-              Líderes
-            </Link>
-            <Link to={"/referidos"}>
-              <span className="material-symbols-outlined">groups</span>
-              Referidos
-            </Link>
-            <Link to={"/usuarios"}>
-              <span className="material-symbols-outlined">account_circle</span>
-              Usuarios
-            </Link>
-          </>
-        )}
-
-        {auth && auth.role === "ADMIN" && (
-          <>
-            <Link to={"/dashboardAdmin"}>
-              <span className="material-symbols-outlined">home</span>
-              Inicio
-            </Link>
-            <Link to={"/lideres"}>
-              <span className="material-symbols-outlined">group</span>
-              Líderes
-            </Link>
-            <Link to={"/referidos"}>
-              <span className="material-symbols-outlined">groups</span>
-              Referidos
-            </Link>
-          </>
+          <Link to={"/usuarios"}>
+            <span className="material-symbols-outlined">account_circle</span>
+            Usuarios
+          </Link>
         )}
       </nav>
     </div>

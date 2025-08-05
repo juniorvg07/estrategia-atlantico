@@ -1,22 +1,26 @@
 import axios from "axios";
-import { useNavigate } from "react-router";
-import { toast } from "react-toastify";
 
 export const axiosInstance = axios.create({
   baseURL: "https://api-estrategia-atlantico.onrender.com",
+  /*baseURL: "http://localhost:8080",*/
   withCredentials: true,
 });
+
+// Variable para evitar múltiples modales
+let isSessionExpiredModalShown = false;
 
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
-    const navigate = useNavigate();
+    if (
+      error.response &&
+      error.response.status === 403 &&
+      !isSessionExpiredModalShown
+    ) {
+      isSessionExpiredModalShown = true;
 
-    const status = error.response?.status;
-
-    if (status === 401 || status === 403) {
-      toast.error("Su sesión ha expirado");
-      navigate("/login");
+      // Lanza un evento personalizado para que lo escuche tu app
+      window.dispatchEvent(new Event("sessionExpired"));
     }
 
     return Promise.reject(error);

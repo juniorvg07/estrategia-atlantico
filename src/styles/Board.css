@@ -1,0 +1,26 @@
+.board-container {
+    box-sizing: border-box;
+    border: 1px solid gray;
+    border-radius: 12px;
+    box-shadow: 0.1rem 0.2rem 0.25rem rgba(21, 21, 21, .5);
+}
+
+.board-container div {
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 480px) {
+    
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    
+}
+
+@media screen and (min-width: 769px) {
+    .board-container {
+        width: auto;
+        height: 100%;
+        padding: 1rem;
+    }
+}

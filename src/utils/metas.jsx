@@ -10,7 +10,7 @@ export const MetasAtl = [
     metaReferidos: "800",
   },
   {
-    foro: "COLINA CAMPESTRE",
+    foro: "PRADERA",
     metaLideres: "220",
     metaReferidos: "2359",
   },
@@ -45,7 +45,7 @@ export const MetasAtl = [
     metaReferidos: "120",
   },
   {
-    foro: "SABANA- GRANDE",
+    foro: "SABANAGRANDE",
     metaLideres: "40",
     metaReferidos: "320",
   },

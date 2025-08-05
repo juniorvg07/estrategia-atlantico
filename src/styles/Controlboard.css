@@ -1,0 +1,82 @@
+
+
+@media screen and (max-width: 480px) {
+    
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    
+}
+
+@media screen and (min-width: 769px) {
+    .control-container {
+        height: 100%;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 30% 35% 35%;
+        align-items: center;
+        justify-items: center;
+        padding: .75rem;
+        grid-row: 1;
+        grid-column: 1 / span 2;
+        border: 1px solid gray;
+        border-radius: 12px;
+        box-sizing: border-box;
+        box-shadow: 0.1rem 0.2rem 0.25rem rgba(21, 21, 21, .5);
+    }
+
+    #controls {
+        grid-column: 1;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    #lideres-panel, #referidos-panel {
+        width: 100%;
+        height: 100%;
+        align-content: center;
+        justify-items: center;
+    }
+    #lideres-panel {
+        grid-column: 2;
+    }
+    #referidos-panel {
+        grid-column: 3;
+    }
+
+    .circle {
+        width: 70%;
+        height: 80%;
+        border-radius: 50%;
+        background: conic-gradient(
+            red calc(var(--percentage) * 1%), 
+            lightgray 0
+        );
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+ 
+    .circle-content {
+        width: 85%;
+        height: 85%;
+        background-color: white;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: .75rem;
+    }
+
+    .circle-content h2 {
+        font-size: 2.25rem;
+    }
+
+    .circle-content h3 {
+        font-size: 1.5rem;
+    }
+}

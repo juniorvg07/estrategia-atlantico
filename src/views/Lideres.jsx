@@ -1,19 +1,35 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { PersonalContext } from "../utils/PersonalContext";
 import { SidebarContext } from "../utils/sidebarContext";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
-import { Table } from "../components/Tables/Table";
+import { Filters } from "../components/filtersTable/Filters";
+import { lideresDataTable } from "../utils/LideresTableData";
+import { Table } from "../components/tables/Table";
 
 export const Lideres = () => {
   const [sidebar, setSidebar] = useState(false);
+  const { lideres, cargando } = useContext(PersonalContext);
+  const [globalFilter, setGlobalFilter] = useState("");
+  const { columns } = lideresDataTable();
 
   return (
-    <SidebarContext.Provider value={{ sidebar, setSidebar }}>
-      <Header title="Líderes" />
-      <Sidebar isOpen={sidebar} onClose={() => setSidebar(false)} />
-      <main className="main-table">
-        <Table></Table>
-      </main>
-    </SidebarContext.Provider>
+    <>
+      <SidebarContext.Provider value={{ sidebar, setSidebar }}>
+        <Header title={"Lideres"} />
+        <Sidebar isOpen={sidebar} onClose={() => setSidebar(false)} />
+        <main className="main-app">
+          <Filters filter={globalFilter} setFilter={setGlobalFilter} />
+          {cargando && (
+            <Table
+              data={lideres}
+              columns={columns}
+              filter={globalFilter}
+              setFilter={setGlobalFilter}
+            />
+          )}
+        </main>
+      </SidebarContext.Provider>
+    </>
   );
 };

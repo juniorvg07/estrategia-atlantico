@@ -16,9 +16,8 @@
 }
 
 html, body {
-  height: 100%;
-  overflow: hidden;
   font-family: 'Proxima';
+  overflow: hidden;
 }
 
 body {
@@ -26,9 +25,16 @@ body {
   padding: 0;
   box-sizing: border-box;
   font-family: 'Proxima';
+  width: 100dvw;
+  height: 100dvh;
 }
 
-main {
-  margin-top: 3rem;
-  padding: 1rem;
+h1, h2, h3, h4, fieldset {
+  margin: 0;
+}
+
+.main-app {
+  height: 100dvh;
+  box-sizing: border-box;
+  padding-top: 3rem;
 }

@@ -1,0 +1,47 @@
+
+
+@media screen and (max-width: 480px) {
+    
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    
+}
+
+@media screen and (min-width: 769px) {
+    #main-tree {
+        display: grid;
+        padding: 3.5rem 2rem .5rem 2rem;
+        gap: .5rem;
+        overflow-y: scroll;
+    }
+
+    #main-tree section {
+        width: 100%;
+        display: flex;
+        border: 1px solid gray;
+        border-radius: 12px;
+        padding: 1rem;
+        box-sizing: border-box;
+        align-items: center;
+        gap: .75rem;
+        overflow-x: auto;
+    }
+
+    .foro-section {
+        height: 10rem;
+    }
+
+    :is(.cuidadores-section, .lideres-section, .referidos-section) {
+        height: 13.25rem;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    :is(.cuidadores-section, .lideres-section, .referidos-section) .cards-container {
+        display: flex;
+        box-sizing: border-box;
+        width: 100%;
+        gap: .75rem;
+    }
+}

@@ -1,4 +1,3 @@
-/* src/components/Spinner.css */
 .spinner-container {
   display: flex;
   justify-content: center;
@@ -6,7 +5,7 @@
   height: 100vh;
 }
 
-.loader {
+.loaderSpin {
   border: 8px solid #f3f3f3;
   border-top: 8px solid #007bff;
   border-radius: 50%;

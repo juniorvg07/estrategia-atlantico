@@ -1,21 +1,22 @@
-import { useState, useContext, useEffect } from "react";
-import { Spinner } from "../components/Spinner";
-import { AuthContext } from "../auth/AuthContext";
-import { useNavigate } from "react-router-dom";
-import { axiosInstance } from "../services/axiosInstance";
+import { useState, useEffect } from "react";
+import { useLogin } from "../hooks/UseLogin";
+import { Spinner } from "../components/loaders/Spinner";
+import { Loader } from "../components/loaders/Loader";
+import { InputField } from "../components/forms/InputField";
+import { LoginFailedModal } from "../components/modals/LoginFailed";
 import "../styles/Login.css";
 
 export const Login = () => {
-  const [loading, setLoading] = useState(true);
-  const { login } = useContext(AuthContext);
-  const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
   });
-  const [errorLabel, setErrorLabel] = useState("");
+  const { handleLogin, loader, modalError, setModalError, errorLabel } =
+    useLogin();
+  const [loading, setLoading] = useState(true);
   const [showPass, setShowPass] = useState(false);
 
+  // --> Sanitización de las entradas del usuario en campos User y Password <--
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -31,27 +32,13 @@ export const Login = () => {
     setCredentials({ ...credentials, [name]: safeValue });
   };
 
+  // --> Submit del formulario <--
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axiosInstance.post("/auth/login", credentials, {
-        withCredentials: true,
-      });
-      const name = response.data.name;
-      const role = response.data.role;
-      const foro = response.data.foro;
-      login(name, role, foro);
-      if (role === "SUPERADMIN") {
-        navigate("/dashboardSuper");
-      } else if (role === "ADMIN") {
-        navigate("/dashboardAdmin");
-      }
-    } catch (error) {
-      setErrorLabel(error.response.data);
-      console.error("Error al iniciar sesión:", error);
-    }
+    handleLogin(credentials); // Función con la lógica del Login del usuario o rechazo
   };
 
+  // --> Timeout del Spinner inicial <--
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
@@ -59,7 +46,7 @@ export const Login = () => {
   }, []);
 
   if (loading) {
-    return Spinner();
+    return <Spinner />;
   } else {
     return (
       <main className="login-main">
@@ -67,40 +54,46 @@ export const Login = () => {
           <form className="form-container" onSubmit={handleSubmit}>
             <h1>Estrategia Atlántico</h1>
 
-            <section className="credentials">
-              <label>USUARIO: </label>
-              <input
-                type="text"
-                placeholder="Usuario"
-                name="username"
-                value={credentials.username}
-                onChange={handleChange}
-              />
-            </section>
+            <InputField
+              icon="account_box"
+              type="text"
+              name="username"
+              value={credentials.username}
+              onChange={handleChange}
+              placeholder="Usuario"
+              label="USUARIO"
+            />
 
-            <section className="credentials">
-              <label>CONTRASEÑA: </label>
-              <div>
-                <input
-                  type={showPass ? "text" : "password"}
-                  placeholder="Contraseña"
-                  name="password"
-                  value={credentials.password}
-                  onChange={handleChange}
-                />
-                <span
-                  className="material-symbols-outlined"
-                  onClick={() => setShowPass(!showPass)}
-                >
-                  {showPass ? "visibility" : "visibility_off"}
-                </span>
-              </div>
-            </section>
+            <InputField
+              icon="lock"
+              type={showPass ? "text" : "password"}
+              name="password"
+              value={credentials.password}
+              onChange={handleChange}
+              placeholder="Contraseña"
+              label="CONTRASEÑA"
+            >
+              <span
+                id="visibility"
+                className="material-symbols-outlined"
+                onClick={() => setShowPass(!showPass)}
+              >
+                {showPass ? "visibility_off" : "visibility"}
+              </span>
+            </InputField>
 
             <button type="submit">Iniciar Sesión</button>
-            <label>{errorLabel}</label>
           </form>
         </div>
+
+        {loader && <Loader />}
+
+        {modalError && (
+          <LoginFailedModal
+            errorLabel={errorLabel}
+            onClose={() => setModalError(false)}
+          />
+        )}
       </main>
     );
   }

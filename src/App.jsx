@@ -1,20 +1,36 @@
-import { Suspense, useContext } from "react";
-import { Spinner } from "./components/Spinner";
+import { Suspense, useState, useContext, useEffect } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import { AuthContext } from "./auth/AuthContext";
 import { ProtectedRoute } from "./routes/ProtectedRoute";
+import { Spinner } from "./components/loaders/Spinner";
+import { SessionExpiredModal } from "./components/modals/SessionExpired";
 import { Login } from "./views/Login";
-import { Unauthorized } from "./views/Unautorized";
-import { DashboardSuper } from "./views/DashboardSuper";
-import { DashboardAdmin } from "./views/DashboardAdmin";
+import { Dashboard } from "./views/Dashboard";
+import { Arbol } from "./views/Arbol";
 import { Lideres } from "./views/Lideres";
 import { Referidos } from "./views/Referidos";
 import { Usuarios } from "./views/Usuarios";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  const { auth, loading } = useContext(AuthContext);
+  const { auth, loading, logout } = useContext(AuthContext);
+  const [showSessionExpired, setShowSessionExpired] = useState(false);
+
+  useEffect(() => {
+    const handleSessionExpired = () => {
+      setShowSessionExpired(true);
+    };
+
+    window.addEventListener("sessionExpired", handleSessionExpired);
+
+    return () => {
+      window.removeEventListener("sessionExpired", handleSessionExpired);
+    };
+  }, []);
+
+  const handleCloseModal = () => {
+    setShowSessionExpired(false);
+    logout();
+  };
 
   if (loading) return <Spinner />;
 
@@ -25,10 +41,8 @@ function App() {
           path="/"
           element={
             auth.isAuthenticated ? (
-              auth.role === "SUPERADMIN" ? (
-                <Navigate to="/dashboardSuper" />
-              ) : auth.role === "ADMIN" ? (
-                <Navigate to="/dashboardAdmin" />
+              auth.role === "SUPERADMIN" || "ADMIN" || "USER" ? (
+                <Navigate to="/dashboard" />
               ) : (
                 <Login />
               )
@@ -41,10 +55,8 @@ function App() {
           path="/login"
           element={
             auth.isAuthenticated ? (
-              auth.role === "SUPERADMIN" ? (
-                <Navigate to="/dashboardSuper" />
-              ) : auth.role === "ADMIN" ? (
-                <Navigate to="/dashboardAdmin" />
+              auth.role === "SUPERADMIN" || "ADMIN" || "USER" ? (
+                <Navigate to="/dashboard" />
               ) : (
                 <Login />
               )
@@ -53,34 +65,39 @@ function App() {
             )
           }
         />
-        <Route path="/unauthorized" element={<Unauthorized />} />
-
-        <Route element={<ProtectedRoute allowedRoles={["SUPERADMIN"]} />}>
-          <Route path="/dashboardSuper" element={<DashboardSuper />} />
-        </Route>
-
-        <Route element={<ProtectedRoute allowedRoles={["ADMIN"]} />}>
-          <Route path="/dashboardAdmin" element={<DashboardAdmin />} />
-        </Route>
-
         <Route
-          element={<ProtectedRoute allowedRoles={["SUPERADMIN", "ADMIN"]} />}
+          element={
+            <ProtectedRoute allowedRoles={["SUPERADMIN", "ADMIN", "USER"]} />
+          }
+        >
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
+        <Route
+          element={
+            <ProtectedRoute allowedRoles={["SUPERADMIN", "ADMIN", "USER"]} />
+          }
+        >
+          <Route path="/arbol" element={<Arbol />} />
+        </Route>
+        <Route
+          element={
+            <ProtectedRoute allowedRoles={["SUPERADMIN", "ADMIN", "USER"]} />
+          }
         >
           <Route path="/lideres" element={<Lideres />} />
         </Route>
-
         <Route
-          element={<ProtectedRoute allowedRoles={["SUPERADMIN", "ADMIN"]} />}
+          element={
+            <ProtectedRoute allowedRoles={["SUPERADMIN", "ADMIN", "USER"]} />
+          }
         >
           <Route path="/referidos" element={<Referidos />} />
         </Route>
-
         <Route element={<ProtectedRoute allowedRoles={["SUPERADMIN"]} />}>
           <Route path="/usuarios" element={<Usuarios />} />
         </Route>
       </Routes>
-
-      <ToastContainer position="top-right" autoClose={3000} />
+      {showSessionExpired && <SessionExpiredModal onClose={handleCloseModal} />}
     </Suspense>
   );
 }

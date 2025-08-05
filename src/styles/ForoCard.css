@@ -1,0 +1,61 @@
+.foroCard-container {
+    padding: .25rem;
+    box-sizing: border-box;
+    border-radius: 10px;
+    background-color: var(--azul-mira);
+}
+
+.foroCard {
+    border: 0;
+    border-radius: 6px;
+    background-color: var(--gris-medio);
+}
+
+@media screen and (max-width: 480px) {
+    
+}
+
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    
+}
+
+@media screen and (min-width: 769px) {
+    .foroCard-container {
+        height: 100%;
+        min-width: 12rem; 
+    }
+
+    .foroCard {
+        height: 100%;
+        max-width: 12rem;
+        border-collapse: collapse;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+
+    .foroCard-container:hover {
+        scale: 110%;
+    }
+
+    .foroCard h3 {
+        text-align: center;
+        padding: .25rem 0;
+    }
+
+    .foroCard div {
+        display: flex;
+        flex-direction: column;
+        gap: .2rem;
+        cursor: pointer;
+    }
+
+    .foroCard div label {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}

@@ -1,0 +1,51 @@
+/* Fondo oscuro */
+.failed-overlay {
+    width: 100%;
+    height: 100dvh;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+}
+
+/* Caja modal centrada */
+.failed-modal {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 40%;
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+}
+
+.failed-modal span {
+    font-size: 4rem;
+    color: red;
+}
+
+:is(.failed-modal) :is(h2, h3){
+    text-align: center;
+}
+
+/* Botón cerrar */
+.close-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: #dc2626;
+}

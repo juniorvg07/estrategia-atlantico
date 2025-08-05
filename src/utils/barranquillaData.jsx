@@ -1,7 +1,7 @@
 export const BarranquillaData = [
   "BOSTON",
   "LA SIERRITA",
-  "COLINA CAMPESTRE",
+  "PRADERA",
   "LAS NIEVES",
   "RIOMAR",
 ];
