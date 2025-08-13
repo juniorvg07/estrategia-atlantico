@@ -83,6 +83,8 @@ export const Login = () => {
             </InputField>
 
             <button type="submit">Iniciar Sesión</button>
+
+            <label id="version">Ver. 2.0.0</label>
           </form>
         </div>
 

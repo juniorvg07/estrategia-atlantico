@@ -21,6 +21,16 @@
     box-shadow: 0.25rem 0.5rem 0.5rem rgba(21, 21, 21, .3);
 }
 
+.credentials span {
+    color: var(--azul-mira);
+}
+
+#version {
+    position: relative;
+    top: 1.5rem;
+    color: var(--azul-mira);
+}
+
 @media screen and (max-width: 480px) {
     .form-container {
         width: 90%;

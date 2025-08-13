@@ -6,12 +6,25 @@ import Sidebar from "../components/Sidebar";
 import { Filters } from "../components/filtersTable/Filters";
 import { referidosDataTable } from "../utils/ReferidosDataTable";
 import { Table } from "../components/tables/Table";
+import { EditPerson } from "../components/modals/EditPerson";
 
 export const Referidos = () => {
   const [sidebar, setSidebar] = useState(false);
   const { referidos, cargando } = useContext(PersonalContext);
-  const [globalFilter, setGlobalFilter] = useState("");
+  const [dataFilter, setDataFilter] = useState([]);
   const { columns } = referidosDataTable();
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [person, setPerson] = useState([]);
+
+  const openModal = (p) => {
+    setIsOpenModal(true);
+    setPerson(p);
+  };
+
+  const closeModal = () => {
+    setIsOpenModal(false);
+    setPerson([]);
+  };
 
   return (
     <>
@@ -19,14 +32,16 @@ export const Referidos = () => {
         <Header title={"Referidos"} />
         <Sidebar isOpen={sidebar} onClose={() => setSidebar(false)} />
         <main className="main-app">
-          <Filters filter={globalFilter} setFilter={setGlobalFilter} />
+          <Filters filter={referidos} setFilter={setDataFilter} />
           {cargando && (
             <Table
-              data={referidos}
+              data={dataFilter}
               columns={columns}
-              filter={globalFilter}
-              setFilter={setGlobalFilter}
+              handleModal={openModal}
             />
+          )}
+          {isOpenModal && (
+            <EditPerson personData={person} onClose={closeModal} />
           )}
         </main>
       </SidebarContext.Provider>

@@ -6,14 +6,10 @@ import {
 } from "@tanstack/react-table";
 import "../../styles/Tables.css";
 
-export const Table = ({ data, columns, filter, setFilter }) => {
+export const Table = ({ data, columns, handleModal }) => {
   const table = useReactTable({
     data,
     columns,
-    state: {
-      globalFilter: filter,
-    },
-    onGlobalFilterChange: setFilter,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
   });
@@ -41,7 +37,7 @@ export const Table = ({ data, columns, filter, setFilter }) => {
             <tr
               key={row.id}
               className={`fila-datos ${row.index % 2 === 0 ? "par" : "impar"}`}
-              onDoubleClick={() => console.log("Doble clic en:", row.original)}
+              onDoubleClick={() => handleModal(row.original)}
             >
               {row.getVisibleCells().map((cell) => (
                 <td key={cell.id} className="celda-dato">

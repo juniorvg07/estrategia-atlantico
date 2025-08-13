@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useMemo } from "react";
 import { AuthContext } from "../../auth/AuthContext";
 import { setCsvData } from "../../hooks/SetCSVData";
 import { ForosData } from "../../utils/ForosData";
@@ -14,11 +14,21 @@ export const Filters = ({ filter, setFilter }) => {
   const [municipios, setMunicipios] = useState([]);
   const [barrios, setBarrios] = useState([]);
   const [puesto, setPuesto] = useState([]);
+  const [cuidadoresList, setCuidadoresList] = useState([]);
   const [selectedMuni, setSelectedMuni] = useState("");
   const [selectedCuidador, setSelectedCuidador] = useState("");
   const [selectedForo, setSelectedForo] = useState("");
   const [selectedBarrio, setSelectedBarrio] = useState("");
   const [selectedPuesto, setSelectedPuesto] = useState("");
+
+  useEffect(() => {
+    if (auth.role === "SUPERADMIN") {
+      setCuidadoresList(Cuidadores);
+    } else if (auth.role === "ADMIN") {
+      const list = Cuidadores.filter((item) => item.foro === auth.foro);
+      setCuidadoresList(list);
+    }
+  }, []);
 
   useEffect(() => {
     if (territorio.length > 0) {
@@ -62,21 +72,69 @@ export const Filters = ({ filter, setFilter }) => {
     setSelectedCuidador(c);
   };
 
+  const handleFilterChange = (e) => {
+    const searchValue = e.target.value.toLowerCase();
+    const filterRecords = filter.filter((record) => {
+      const nombre = record.nombre?.toLowerCase() || "";
+      const apellido = record.apellido?.toLowerCase() || "";
+      const documento =
+        record.documento?.toLowerCase?.() ||
+        record.documento?.toString().toLowerCase() ||
+        "";
+
+      return (
+        nombre.includes(searchValue) ||
+        apellido.includes(searchValue) ||
+        documento.includes(searchValue)
+      );
+    });
+    setFilter(filterRecords);
+  };
+
+  const dataFilter = useMemo(() => {
+    return filter.filter((item) => {
+      return (
+        (selectedForo === "" || item.foro === selectedForo) &&
+        (selectedCuidador === "" || item.created_by === selectedCuidador) &&
+        (selectedMuni === "" || item.municipio === selectedMuni) &&
+        (selectedBarrio === "" || item.barrio === selectedBarrio) &&
+        (selectedPuesto === "" || item.puesto_votacion === selectedPuesto)
+      );
+    });
+  }, [
+    selectedForo,
+    selectedCuidador,
+    selectedMuni,
+    selectedBarrio,
+    selectedPuesto,
+    filter,
+  ]);
+
+  useEffect(() => {
+    setFilter(dataFilter);
+  }, [
+    selectedForo,
+    selectedCuidador,
+    selectedMuni,
+    selectedBarrio,
+    selectedPuesto,
+    filter,
+  ]);
+
   return (
     <section className="filters">
       <article className="filter-input">
+        <label>Documento, Nombre o Apellido:</label>
         <input
           type="text"
-          value={filter ?? ""}
-          onChange={(e) => setFilter(e.target.value)}
+          onChange={handleFilterChange}
           className="buscador-global"
           required
         />
-        <label>Documento</label>
       </article>
 
       <article className="filters-container">
-        {auth.foro === "SUPERADMIN" && (
+        {auth.role === "SUPERADMIN" && (
           <SelectFilter
             id="filter-foro"
             title="Foros:"
@@ -87,14 +145,19 @@ export const Filters = ({ filter, setFilter }) => {
           />
         )}
 
-        <CuidadoresFilter
-          id="filter-cuidador"
-          title="Cuidador:"
-          value={selectedCuidador}
-          list="cuidadores"
-          handle={handleCuidadorChange}
-          array={Cuidadores}
-        />
+        {auth.role === "SUPERADMIN" || auth.role === "ADMIN" ? (
+          <CuidadoresFilter
+            id="filter-cuidador"
+            title="Cuidador:"
+            value={selectedCuidador}
+            list="cuidadores"
+            handle={handleCuidadorChange}
+            array={cuidadoresList}
+          />
+        ) : (
+          <></>
+        )}
+
         <SelectFilter
           id="filter-municipio"
           title="Municipios:"
